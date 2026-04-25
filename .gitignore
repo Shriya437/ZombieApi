@@ -1,0 +1,4 @@
+dataset/
+*.db
+__pycache__/
+*.pyc
