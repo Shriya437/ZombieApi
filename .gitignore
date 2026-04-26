@@ -1,0 +1,33 @@
+# Virtual Environments
+venv/
+env/
+.env
+
+# Python Cache & Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Data, Spreadsheets & Serialized Files
+*.csv
+*.tsv
+*.pickle
+*.pkl
+*.dat
+*.json  # Optional: Remove if you need config JSONs, keep if they are large data dumps
+
+# Jupyter Notebook Checkpoints (if you use them for data exploration)
+.ipynb_checkpoints/
+
+# IDEs and Editors
+.vscode/
+.idea/
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+
+# Logs and Artifacts
+*.log
+# artifacts/  # Uncomment this if your 'artifacts' folder stores large models or generated outputs

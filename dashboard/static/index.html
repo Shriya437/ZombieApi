@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIDS Dashboard - AI Security</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo"></div>
+                <h2>ZombieAPI</h2>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Data Intake</h3>
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="csvFile" accept=".csv" hidden>
+                    <button class="upload-btn" onclick="document.getElementById('csvFile').click()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        Select CSV File
+                    </button>
+                    <span id="fileName" class="file-name">No file selected</span>
+                </div>
+                
+                <button class="action-btn primary" id="runAnalysisBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Run Analysis
+                </button>
+            </div>
+
+            <div class="nav-section">
+                <h3>Navigation</h3>
+                <ul class="nav-links">
+                    <li class="active"><a href="#">Dashboard</a></li>
+                    <li><a href="#" id="viewResultsBtn">View Results</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3>Filters</h3>
+                <div class="filter-group">
+                    <label>Risk Level</label>
+                    <select disabled>
+                        <option>All</option>
+                        <option>High</option>
+                        <option>Medium</option>
+                        <option>Low</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Attack Type</label>
+                    <select disabled>
+                        <option>All</option>
+                        <option>DDoS</option>
+                        <option>Port Scan</option>
+                    </select>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h1>Network Intrusion Detection</h1>
+                <div class="status-indicator">
+                    <span class="pulse"></span>
+                    <span id="systemStatus">System Ready</span>
+                </div>
+            </header>
+
+            <!-- Loading Overlay -->
+            <div id="loadingOverlay" class="loading-overlay hidden">
+                <div class="spinner"></div>
+                <p>Analyzing Traffic via ML Pipeline...</p>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div id="dashboardContent" class="dashboard-content hidden">
+                <!-- Metrics -->
+                <section class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">🌊</div>
+                        <div class="metric-info">
+                            <span class="label">Total Flows</span>
+                            <span class="value" id="metricTotalFlows">0</span>
+                        </div>
+                    </div>
+                    <div class="metric-card warning">
+                        <div class="metric-icon">⚠️</div>
+                        <div class="metric-info">
+                            <span class="label">Anomalies Detected</span>
+                            <span class="value" id="metricAnomalies">0</span>
+                        </div>
+                    </div>
+                    <div class="metric-card danger">
+                        <div class="metric-icon">🚨</div>
+                        <div class="metric-info">
+                            <span class="label">High Risk Flows</span>
+                            <span class="value" id="metricHighRisk">0</span>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="middle-section">
+                    <!-- Feature Importance Placeholder -->
+                    <div class="chart-container glass-panel">
+                        <h3>Feature Importance</h3>
+                        <div id="featureImportanceList" class="feature-list">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Temporal Data Placeholder -->
+                    <div class="chart-container glass-panel">
+                        <h3>Anomaly Timeline</h3>
+                        <div class="timeline-bars" id="timelineBars">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <section class="table-section glass-panel">
+                    <div class="table-header">
+                        <h3>High-Risk Traffic Patterns</h3>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="resultsTable">
+                            <thead>
+                                <tr>
+                                    <th>Flow ID</th>
+                                    <th>Attack Type</th>
+                                    <th>Risk Level</th>
+                                    <th>Risk Score</th>
+                                    <th>Anomaly Score</th>
+                                    <th>Confidence</th>
+                                    <th>Behavior Tag</th>
+                                    <th>Explanation</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+            
+            <div id="welcomeScreen" class="welcome-screen">
+                <div class="welcome-content">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M8 11h8"/><path d="M12 15V7"/></svg>
+                    <h2>Awaiting Data</h2>
+                    <p>Upload a network traffic CSV and run analysis to view insights.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
