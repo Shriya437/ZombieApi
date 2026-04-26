@@ -1,4 +1,5 @@
-dataset/
-*.db
+venv/
 __pycache__/
 *.pyc
+*.pkl
+*.csv

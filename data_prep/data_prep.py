@@ -71,6 +71,9 @@ df = df[selected_columns]
 missing_cols = [col for col in selected_columns if col not in df.columns]
 print("Missing Columns:", missing_cols)
 
+# Remove invalid durations
+df = df[df["Flow Duration"] > 0]
+
 #creating derived features
 df["Down/Up Ratio"] = df["Down/Up Ratio"].replace([np.inf, -np.inf], 0)
 
@@ -82,8 +85,61 @@ df["bytes_per_packet"] = df["total_bytes"] / (df["total_packets"] + 1)
 
 df["packet_ratio"] = df["Total Fwd Packets"] / (df["Total Backward Packets"] + 1)
 
-# Remove invalid durations
-df = df[df["Flow Duration"] > 0]
+# ================= NEW ADVANCED FEATURES =================
+
+# 1. Packets per second (normalized frequency)
+df["packets_per_second"] = df["total_packets"] / (df["Flow Duration"] + 1)
+
+# 2. Traffic imbalance (directional dominance)
+df["traffic_imbalance"] = (
+    df["Total Length of Fwd Packets"] - df["Total Length of Bwd Packets"]
+) / (df["total_bytes"] + 1)
+
+# 3. IAT variability (timing irregularity)
+df["iat_variability"] = df["Flow IAT Std"] / (df["Flow IAT Mean"] + 1)
+
+# 4. Burstiness (sudden spikes)
+df["burstiness"] = df["Flow Packets/s"] * df["Flow IAT Std"]
+
+# 5. SYN/ACK ratio (handshake anomaly)
+df["flag_ratio"] = df["SYN Flag Count"] / (df["ACK Flag Count"] + 1)
+
+# 6. Reset rate (connection instability)
+df["reset_rate"] = df["RST Flag Count"] / (df["total_packets"] + 1)
+
+# 7. Packet size variability (pattern detection)
+df["packet_size_variability"] = df["Packet Length Std"] / (df["Packet Length Mean"] + 1)
+
+# 8. Forward dominance (important for zombie APIs)
+df["forward_dominance"] = df["Total Fwd Packets"] / (df["Total Backward Packets"] + 1)
+
+# 9. Requests per second (same as packets_per_second but semantic clarity)
+df["requests_per_second"] = df["Flow Packets/s"]
+
+# 10. Time between requests (already exists but rename for clarity)
+df["time_between_requests"] = df["Flow IAT Mean"]
+
+# 11. Repeat call ratio (low variation = repeated behavior)
+df["repeat_call_ratio"] = 1 / (df["Flow IAT Std"] + 1)
+
+# 12. Endpoint diversity (frequency-based, corrected)
+port_counts = df["Destination Port"].value_counts()
+df["endpoint_diversity"] = df["Destination Port"].map(port_counts)
+
+# Clean new features
+new_features = [
+    "packets_per_second", "traffic_imbalance", "iat_variability",
+    "burstiness", "flag_ratio", "reset_rate",
+    "packet_size_variability", "forward_dominance",
+    "repeat_call_ratio", "endpoint_diversity"
+]
+
+for col in new_features:
+    df[col] = df[col].replace([np.inf, -np.inf], 0)
+
+# Clip extreme outliers
+for col in new_features:
+    df[col] = df[col].clip(upper=df[col].quantile(0.99))
 
 # Clip extreme outliers
 df["Flow Duration"] = df["Flow Duration"].clip(upper=df["Flow Duration"].quantile(0.99))
@@ -126,21 +182,11 @@ df["Label"] = df["Label"].replace({
     "Heartbleed": "Attack",
     "Infiltration": "Attack"
 })
+
 print(df["Label"].value_counts())
 
 print(df.isnull().sum())
 print(df.describe())
 
-#Save to databasse
-from sqlalchemy import create_engine
-
-# Create database
-engine = create_engine("sqlite:///aether.db")
-
-# Save dataframe
-df.to_sql("raw_data", engine, if_exists="replace", index=False)
-
-print("Data saved successfully!")
-
-def fetch_raw_data():
-    return pd.read_sql("SELECT * FROM raw_data", engine)
+df.to_csv("cleaned_cicids2017.csv", index=False)
+print("Cleaned data saved to csv successfully!")
