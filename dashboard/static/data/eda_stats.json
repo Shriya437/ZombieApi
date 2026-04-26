@@ -1,0 +1,201 @@
+{
+    "data_overview": {
+        "shape": [
+            2572527,
+            40
+        ]
+    },
+    "class_distribution": {
+        "Benign": 2146786,
+        "DDoS": 321759,
+        "PortScan": 90694,
+        "Attack": 11145,
+        "WebAttack": 2143
+    },
+    "class_percentage": {
+        "Benign": 83.45047496100139,
+        "DDoS": 12.507507209836866,
+        "PortScan": 3.525482920101519,
+        "Attack": 0.4332316045662495,
+        "WebAttack": 0.08330330449398587
+    },
+    "top_ports": {
+        "53": 914559,
+        "80": 546302,
+        "443": 475407,
+        "123": 22941,
+        "22": 11289,
+        "21": 10052,
+        "389": 6045,
+        "88": 5309,
+        "137": 3448,
+        "465": 3062
+    },
+    "top_suspicious_ports": {
+        "4282": 1.0,
+        "27636": 1.0,
+        "4617": 1.0,
+        "143": 0.7676056338028169,
+        "199": 0.7548387096774194,
+        "23": 0.7536231884057971,
+        "110": 0.7516339869281046,
+        "8888": 0.75,
+        "256": 0.7417218543046358,
+        "111": 0.74
+    },
+    "traffic_intensity": {
+        "Attack": {
+            "Flow Bytes/s": 71378.63582262305,
+            "Flow Packets/s": 12475.946393875965
+        },
+        "Benign": {
+            "Flow Bytes/s": 1693542.9116882137,
+            "Flow Packets/s": 53589.42494724107
+        },
+        "DDoS": {
+            "Flow Bytes/s": 66558.22352154077,
+            "Flow Packets/s": 1036.6911643023816
+        },
+        "PortScan": {
+            "Flow Bytes/s": 253704.2371553552,
+            "Flow Packets/s": 71995.39134039947
+        },
+        "WebAttack": {
+            "Flow Bytes/s": 160.63998017767614,
+            "Flow Packets/s": 2406.294994698705
+        }
+    },
+    "packet_imbalance": {
+        "Attack": 0.002497051619408653,
+        "Benign": -0.16061332316313043,
+        "DDoS": -0.5377610026024758,
+        "PortScan": -0.6414707835562263,
+        "WebAttack": -0.01527397536996188
+    },
+    "timing_behavior": {
+        "Attack": {
+            "Flow IAT Mean": 220120.14230429052,
+            "iat_variability": 2.00039867035238
+        },
+        "Benign": {
+            "Flow IAT Mean": 948638.9015361444,
+            "iat_variability": 1.3043709722311725
+        },
+        "DDoS": {
+            "Flow IAT Mean": 4969728.361505608,
+            "iat_variability": 2.755691092836675
+        },
+        "PortScan": {
+            "Flow IAT Mean": 46210.72624254364,
+            "iat_variability": 0.023084242616935622
+        },
+        "WebAttack": {
+            "Flow IAT Mean": 1602841.5269071208,
+            "iat_variability": 1.6704239486680865
+        }
+    },
+    "burstiness": {
+        "Attack": 2141884.5757439868,
+        "Benign": 1555168.7531079806,
+        "DDoS": 3093375.2657311866,
+        "PortScan": 30855.727572263935,
+        "WebAttack": 2172793.9331388925
+    },
+    "flag_analysis": {
+        "Attack": {
+            "SYN Flag Count": 0.17729923732615524,
+            "ACK Flag Count": 0.2653207716464782,
+            "flag_ratio": 0.08864961866307762
+        },
+        "Benign": {
+            "SYN Flag Count": 0.05566041515083478,
+            "ACK Flag Count": 0.2883491880420312,
+            "flag_ratio": 0.02783020757541739
+        },
+        "DDoS": {
+            "SYN Flag Count": 0.006576350622671005,
+            "ACK Flag Count": 0.5439941073909355,
+            "flag_ratio": 0.0032881753113355025
+        },
+        "PortScan": {
+            "SYN Flag Count": 0.0,
+            "ACK Flag Count": 0.0006725913511367896,
+            "flag_ratio": 0.0
+        },
+        "WebAttack": {
+            "SYN Flag Count": 0.0,
+            "ACK Flag Count": 0.06439570695286981,
+            "flag_ratio": 0.0
+        }
+    },
+    "repeat_call_behavior": {
+        "Attack": 0.09502654164539849,
+        "Benign": 0.3310648799676067,
+        "DDoS": 0.014819629493793987,
+        "PortScan": 0.9837284417522676,
+        "WebAttack": 0.0635427982127835
+    },
+    "endpoint_diversity": {
+        "Attack": 8961.23472409152,
+        "Benign": 551681.0878918532,
+        "DDoS": 546296.9064610469,
+        "PortScan": 4242.853165589785,
+        "WebAttack": 546302.0
+    },
+    "day_wise_analysis": {
+        "Friday": {
+            "Attack": 1948.0,
+            "Benign": 400201.0,
+            "DDoS": 128014.0,
+            "PortScan": 90694.0,
+            "WebAttack": 0.0
+        },
+        "Monday": {
+            "Attack": 0.0,
+            "Benign": 502635.0,
+            "DDoS": 0.0,
+            "PortScan": 0.0,
+            "WebAttack": 0.0
+        },
+        "Thursday": {
+            "Attack": 36.0,
+            "Benign": 414775.0,
+            "DDoS": 0.0,
+            "PortScan": 0.0,
+            "WebAttack": 2143.0
+        },
+        "Tuesday": {
+            "Attack": 9150.0,
+            "Benign": 412460.0,
+            "DDoS": 0.0,
+            "PortScan": 0.0,
+            "WebAttack": 0.0
+        },
+        "Wednesday": {
+            "Attack": 11.0,
+            "Benign": 416715.0,
+            "DDoS": 193745.0,
+            "PortScan": 0.0,
+            "WebAttack": 0.0
+        }
+    },
+    "attack_type": {
+        "Benign": 1718751,
+        "Infiltration": 252786,
+        "DDoS": 223080,
+        "PortScan": 213742,
+        "WebAttack": 164168
+    },
+    "insights": [
+        "Strong class imbalance exists \u2192 Benign traffic dominates (~83%).",
+        "Ports 53, 80, 443 dominate traffic \u2192 critical API exposure points.",
+        "High attack ratio ports indicate potential Zombie API endpoints.",
+        "DDoS traffic shows high packets/sec and burstiness.",
+        "Attack traffic shows asymmetric communication (traffic imbalance).",
+        "Bot-like behavior seen in low timing variability (iat_variability).",
+        "High SYN/ACK ratio indicates handshake abuse (SYN flood).",
+        "High repeat_call_ratio suggests automated API calls (Zombie APIs).",
+        "Endpoint diversity shows how widely APIs are being targeted.",
+        "Day-wise patterns help identify attack campaigns."
+    ]
+}

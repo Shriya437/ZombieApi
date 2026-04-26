@@ -6,6 +6,7 @@
     <title>NIDS Dashboard - AI Security</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:,">
 </head>
 <body>
     <div class="dashboard-container">
@@ -36,8 +37,11 @@
             <div class="nav-section">
                 <h3>Navigation</h3>
                 <ul class="nav-links">
-                    <li class="active"><a href="#">Dashboard</a></li>
+                    <li class="active"><a href="#" id="navDashboard">Dashboard</a></li>
                     <li><a href="#" id="viewResultsBtn">View Results</a></li>
+                    <li><a href="#" id="navVisuals">EDA Visuals</a></li>
+                    <li><a href="#" id="navStats">EDA Statistics</a></li>
+                    <li><a href="#" id="navInsights">Key Insights</a></li>
                 </ul>
             </div>
 
@@ -156,6 +160,118 @@
                     <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M8 11h8"/><path d="M12 15V7"/></svg>
                     <h2>Awaiting Data</h2>
                     <p>Upload a network traffic CSV and run analysis to view insights.</p>
+                </div>
+            </div>
+
+            <!-- Visuals Content -->
+            <div id="visualsContent" class="dashboard-content hidden">
+                <div class="table-header" style="margin-bottom: 2rem;">
+                    <h3>Exploratory Data Analysis (EDA) Visualizations</h3>
+                </div>
+                <div class="visuals-grid">
+                    <div class="visual-card glass-panel">
+                        <h4>Class Distribution</h4>
+                        <img src="visuals/class_distribution.png" alt="Class Distribution" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Flow Behavior Separation</h4>
+                        <img src="visuals/flow_behavior.png" alt="Flow Behavior" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Traffic Intensity</h4>
+                        <img src="visuals/traffic_intensity.png" alt="Traffic Intensity" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Burstiness vs Packet Rate</h4>
+                        <img src="visuals/burstiness.png" alt="Burstiness vs Packet Rate" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Timing Behavior</h4>
+                        <img src="visuals/timing_behavior.png" alt="Timing Behavior" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Packet Ratio Analysis</h4>
+                        <img src="visuals/packet_ratio.png" alt="Packet Ratio" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Average Flag Behavior</h4>
+                        <img src="visuals/flag_behavior.png" alt="Flag Behavior" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Top Ports</h4>
+                        <img src="visuals/top_ports.png" alt="Top Ports" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Top Ports vs Attack Heatmap</h4>
+                        <img src="visuals/port_attack_heatmap.png" alt="Port Attack Heatmap" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Feature Correlation Heatmap</h4>
+                        <img src="visuals/correlation_heatmap.png" alt="Correlation Heatmap" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Day-wise Attack Distribution</h4>
+                        <img src="visuals/day_wise_attack.png" alt="Day-wise Attack" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Repeat Call Ratio</h4>
+                        <img src="visuals/repeat_call_ratio.png" alt="Repeat Call Ratio" />
+                    </div>
+
+                    <!-- Basic EDA Visuals added below -->
+                    <div class="table-header" style="margin-top: 1.5rem; margin-bottom: 0.5rem; grid-column: 1 / -1;">
+                        <h3 style="color: var(--accent-primary);">Basic EDA Visualizations</h3>
+                    </div>
+                    
+                    <div class="visual-card glass-panel">
+                        <h4>Basic Class Distribution</h4>
+                        <img src="visuals/basic_class_dist.png" alt="Class Distribution" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Flow Duration vs Bytes/s</h4>
+                        <img src="visuals/basic_scatter.png" alt="Flow Duration Scatter" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Feature Distributions (Boxplots)</h4>
+                        <img src="visuals/basic_boxplots.png" alt="Feature Boxplots" />
+                    </div>
+                    <div class="visual-card glass-panel">
+                        <h4>Timing Behavior (KDE)</h4>
+                        <img src="visuals/basic_timing.png" alt="Timing Behavior KDE" />
+                    </div>
+                    <div class="visual-card glass-panel" style="grid-column: 1 / -1;">
+                        <h4>Feature Distributions (Histograms)</h4>
+                        <img src="visuals/basic_histograms.png" alt="Feature Histograms" style="max-height: 400px; object-fit: contain;" />
+                    </div>
+                    <div class="visual-card glass-panel" style="grid-column: 1 / -1;">
+                        <h4>Basic Correlation Heatmap</h4>
+                        <img src="visuals/basic_correlation.png" alt="Basic Correlation Heatmap" style="max-height: 500px; object-fit: contain;" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insights Content -->
+            <div id="insightsContent" class="dashboard-content hidden">
+                <div class="table-header" style="margin-bottom: 2rem;">
+                    <h3>Machine Learning & EDA Insights</h3>
+                </div>
+                
+                <div class="glass-panel" style="margin-bottom: 2rem; border-left: 4px solid var(--accent-primary);">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Key Insights</h3>
+                    <ul class="insights-list" id="insightsList">
+                        <!-- Populated via JS -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Stats Content -->
+            <div id="statsContent" class="dashboard-content hidden">
+                <div class="table-header" style="margin-bottom: 2rem;">
+                    <h3>Exploratory Data Analysis (EDA) Statistics</h3>
+                </div>
+                
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Populated via JS -->
                 </div>
             </div>
         </main>
