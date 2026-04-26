@@ -61,6 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(`${API_BASE}/upload-data`, {
                 method: 'POST',
+                headers: {
+                    'x-auth-token': sessionStorage.getItem('zombie_auth_token')
+                },
                 body: formData
             });
 
@@ -102,7 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingOverlay.classList.remove('hidden');
 
         try {
-            const response = await fetch(`${API_BASE}/results`);
+            const response = await fetch(`${API_BASE}/results`, {
+                headers: {
+                    'x-auth-token': sessionStorage.getItem('zombie_auth_token')
+                }
+            });
             const data = await response.json();
             console.log("API RESPONSE:", data);
             setTimeout(() => {

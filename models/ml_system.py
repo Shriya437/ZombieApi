@@ -188,3 +188,68 @@ def run_ml_pipeline():
 
 if __name__ == "__main__":
     run_ml_pipeline()
+
+def run_ml_on_uploaded_file(file_path):
+    import joblib
+
+    print("Loading uploaded data...")
+
+    if not os.path.exists(file_path):
+        return {"error": "Uploaded file not found"}
+
+    df = pd.read_csv(file_path)
+
+    # Load trained models
+    iso = joblib.load("ZombieApi/artifacts/isolation_forest.pkl")
+    rf = joblib.load("ZombieApi/artifacts/random_forest.pkl")
+
+    label_col = "Label"
+
+        # Load training data to get correct feature columns
+    train_df = pd.read_csv("ZombieApi/data/train_data.csv")
+
+    train_X = train_df.drop(columns=["Label"])
+    train_X = train_X.select_dtypes(include=[np.number]).fillna(0)
+
+    expected_cols = train_X.columns
+
+    # Prepare uploaded data
+    X = df.drop(columns=[label_col], errors='ignore')
+    X = X.select_dtypes(include=[np.number]).fillna(0)
+
+    # Align columns
+    X = X.reindex(columns=expected_cols, fill_value=0)
+
+    # ================= ANOMALY =================
+    df["is_anomaly"] = np.where(iso.predict(X) == -1, 1, 0)
+    df["anomaly_score"] = iso.decision_function(X)
+
+    # ================= CLASSIFICATION =================
+    df["attack_type_pred"] = rf.predict(X)
+    df["confidence"] = rf.predict_proba(X).max(axis=1)
+
+    # ================= RISK =================
+    if "packets_per_second" not in df.columns:
+        df["packets_per_second"] = 0
+
+    max_packets = df["packets_per_second"].max() or 1
+
+    df["risk_score"] = (
+        df["is_anomaly"] * 0.5 +
+        (1 - df["confidence"]) * 0.3 +
+        (df["packets_per_second"] / max_packets) * 0.2
+    )
+
+    df["risk_level"] = df["risk_score"].apply(
+        lambda x: "High" if x > 0.8 else "Medium" if x > 0.5 else "Low"
+    )
+
+    # ================= OUTPUT =================
+    return {
+        "summary": {
+            "total_flows": len(df),
+            "total_anomalies": int(df["is_anomaly"].sum()),
+            "high_risk": int((df["risk_level"] == "High").sum())
+        },
+        "table_data": df.head(100).to_dict(orient="records")
+    }
